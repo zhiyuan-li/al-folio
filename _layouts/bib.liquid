@@ -85,10 +85,10 @@
           {%- if forloop.last and author_array_limit == author_array_size %}and {% endif -%}
         {% endif %}
         {%- if author_is_self -%}
-          <em>
+          <strong>
             {{- author.first }}
             {{ author_last_html -}}
-          </em>
+          </strong> 
         {%- else -%}
           {%- if coauthor_url -%}
             <a href="{{ coauthor_url }}">
@@ -101,6 +101,9 @@
           {% endif %}
         {%- endif -%}
       {% endfor %}
+      {% if entry.alphabet %}
+        (α-β)
+      {% endif %}
       {%- assign more_authors = author_array_size | minus: author_array_limit -%}
 
       {%- assign more_authors_hide = more_authors | append: ' more author' -%}
@@ -177,7 +180,7 @@
       {% include hook/bib.liquid %}
     {% endif %}
     {% assign entrytype_text = entrytype | strip_html | strip %}
-    {% capture periodical %}{{ entrytype }}{% if entrytype_text != "" and entryyear != "" %}, {% endif %}{{ entrymonth }}{{ entryyear }}{% endcapture %}
+    {% capture periodical %}{{ entrytype }}{% if entrytype_text != "" and entryyear != "" %}, {% endif %}<strong>{{ entrymonth }}{% if entry.abbr %}{{ entry.abbr }} {{ entryyear }}{% else %}{{ entryyear }}{% endif %}</strong>{% endcapture %}
     <div class="periodical">
       {{ periodical | strip }}
     </div>
@@ -189,7 +192,7 @@
     <div class="links">
       {% if entry.award %}
         <a class="award btn btn-sm z-depth-0" role="button">
-          {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
+          {%- if entry.award_name %}<b>{{entry.award_name}}</b>{% else %}<b>Awarded</b>{% endif -%}
         </a>
       {% endif %}
       {% if entry.abstract %}

@@ -4,7 +4,7 @@ permalink: /publications/
 title: Publications
 description: > 
     <p>* denotes equal contribution</p>
-    <p>last update: May-13-2025</p>
+    
 nav: true
 nav_order: 2
 ---
